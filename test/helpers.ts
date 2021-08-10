@@ -1,11 +1,18 @@
 import { _7encoder, _7decoder, _8encoder, _8decoder } from '../src/helpers';
-import { _7addr, _7subr } from '../src/circuits';
+import { addr, _7addr, _7subr } from '../src/circuits';
 import { bit, io } from '../src/types';
 
 export const _io = (n: bit[]): io[] => {
   return n.map(b => {
     return { v: b };
   });
+};
+
+export const __addr = (a: bit, b: bit, ci: bit) => {
+  const io = _io([0, 0, a, b, ci]);
+  addr(io[0], io[1], io[2], io[3], io[4]);
+
+  return _8encoder([0, 0, 0, 0, 0, 0, io[0].v, io[1].v]);
 };
 
 export const __7addr = (a: number, b: number) => {

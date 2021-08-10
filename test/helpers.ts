@@ -38,6 +38,7 @@ export const __7addr = (a: number, b: number) => {
 export const __7subr = (a: number, b: number) => {
   const _a = _io(_8decoder(a));
   const _b = _io(_8decoder(b));
+
   const s = _io([0, 0, 0, 0, 0, 0, 0, 0]);
 
   _7subr({ v: 0 }, s, _a, _b);

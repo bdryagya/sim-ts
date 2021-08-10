@@ -34,9 +34,11 @@ export const _7subr = (co: io, s: io[], a: io[], b: io[]) => {
   not(b[4]);
   not(b[5]);
   not(b[6]);
+  not(b[7]);
 
   // carry 1 for two's complement
-  addr(co, s[6], a[6], b[6], { v: 1 });
+  addr(co, s[7], a[7], b[7], { v: 1 });
+  addr(co, s[6], a[6], b[6], co);
   addr(co, s[5], a[5], b[5], co);
   addr(co, s[4], a[4], b[4], co);
   addr(co, s[3], a[3], b[3], co);

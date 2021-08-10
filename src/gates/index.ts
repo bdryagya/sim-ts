@@ -1,10 +1,21 @@
-import { bit } from '../types';
+import { bit, io } from '../types';
 
-export const or = (a: bit, b: bit): bit => (a | b) as bit;
-export const and = (a: bit, b: bit): bit => (a & b) as bit;
-export const not = (a: bit): bit => (~a & 1) as bit;
+export const or = (o: io, a: io, b: io) => (o.v = (a.v | b.v) as bit);
+export const and = (o: io, a: io, b: io) => (o.v = (a.v & b.v) as bit);
+export const not = (i: io) => (i.v = (~i.v & 1) as bit);
+export const xor = (o: io, a: io, b: io) => (o.v = (a.v ^ b.v) as bit);
 
-export const xor = (a: bit, b: bit): bit => (a ^ b) as bit;
-export const nor = (a: bit, b: bit): bit => not(or(a, b));
-export const nand = (a: bit, b: bit): bit => not(and(a, b));
-export const xnor = (a: bit, b: bit): bit => not(xor(a, b));
+export const nor = (o: io, a: io, b: io) => {
+  or(o, a, b);
+  not(o);
+};
+
+export const nand = (o: io, a: io, b: io) => {
+  and(o, a, b);
+  not(o);
+};
+
+export const xnor = (o: io, a: io, b: io) => {
+  xor(o, a, b);
+  not(o);
+};

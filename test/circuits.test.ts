@@ -39,15 +39,16 @@ describe('Arithmetic', () => {
 });
 
 describe('SR Latch', () => {
-  const io: io[] = _io([0, 0, 0, 0]);
-
   test('default state', () => {
+    const io: io[] = _io([0, 0, 0, 0]);
+
     sr(io[0], io[1], io[2], io[3]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 
   test('set', () => {
-    // set;
+    const io: io[] = _io([0, 0, 0, 0]);
+
     io[2].v = 1;
     sr(io[0], io[1], io[2], io[3]);
     expect([io[0].v, io[1].v]).toEqual([0, 1]);
@@ -58,7 +59,8 @@ describe('SR Latch', () => {
   });
 
   test('reset', () => {
-    // reset
+    const io: io[] = _io([0, 0, 0, 1]);
+
     io[3].v = 1;
     sr(io[0], io[1], io[2], io[3]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);

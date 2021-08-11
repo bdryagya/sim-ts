@@ -1,7 +1,7 @@
 import { _io, __7addr, __7subr, __addr } from './helpers';
 import { _7addr, _7subr, sr } from '../src/circuits';
 import { io } from '../src/types';
-import { d, _d } from '../src/circuits/latches';
+import { d, jk, _d } from '../src/circuits/latches';
 
 describe('Arithmetic', () => {
   test('addr', () => {
@@ -113,6 +113,55 @@ describe('D Latch NOR', () => {
   test('no-data', () => {
     io[2].v = 0;
     _d(io[0], io[1], io[2]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+});
+
+describe('JK Flip Flop', () => {
+  test('default state', () => {
+    const io: io[] = _io([0, 0, 0, 0, 1]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+
+  test('set', () => {
+    const io: io[] = _io([0, 0, 0, 0, 1]);
+
+    io[3].v = 1;
+    jk(io[0], io[1], io[2], io[3], io[4]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+
+  test('reset', () => {
+    const io: io[] = _io([0, 0, 0, 0, 1]);
+    jk(io[0], io[1], io[2], io[3], io[4]);
+
+    io[2].v = 1;
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+  });
+
+  test('toggle', () => {
+    const io: io[] = _io([0, 0, 0, 0, 1]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+
+    io[2].v = 1;
+    io[3].v = 1;
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 });

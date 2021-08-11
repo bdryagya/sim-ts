@@ -27,22 +27,33 @@ export const _7addr = (co: io, s: io[], a: io[], b: io[]) => {
 // 7 bit substractor
 export const _7subr = (co: io, s: io[], a: io[], b: io[]) => {
   // invert b
-  not(b[0]);
-  not(b[1]);
-  not(b[2]);
-  not(b[3]);
-  not(b[4]);
-  not(b[5]);
-  not(b[6]);
-  not(b[7]);
+  const _b: io[] = [
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+  ];
+
+  not(_b[0], b[0]);
+  not(_b[1], b[1]);
+  not(_b[2], b[2]);
+  not(_b[3], b[3]);
+  not(_b[4], b[4]);
+  not(_b[5], b[5]);
+  not(_b[6], b[6]);
+  not(_b[7], b[7]);
 
   // carry 1 for two's complement
-  addr(co, s[7], a[7], b[7], { v: 1 });
-  addr(co, s[6], a[6], b[6], co);
-  addr(co, s[5], a[5], b[5], co);
-  addr(co, s[4], a[4], b[4], co);
-  addr(co, s[3], a[3], b[3], co);
-  addr(co, s[2], a[2], b[2], co);
-  addr(co, s[1], a[1], b[1], co);
-  addr(co, s[0], a[0], b[0], co);
+  addr(co, s[7], a[7], _b[7], { v: 1 });
+  addr(co, s[6], a[6], _b[6], co);
+  addr(co, s[5], a[5], _b[5], co);
+  addr(co, s[4], a[4], _b[4], co);
+  addr(co, s[3], a[3], _b[3], co);
+  addr(co, s[2], a[2], _b[2], co);
+  addr(co, s[1], a[1], _b[1], co);
+  addr(co, s[0], a[0], _b[0], co);
 };

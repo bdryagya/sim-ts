@@ -1,6 +1,6 @@
 import { _io } from './helpers';
 import { io } from '../src/types';
-import { d, jk, _d, sr } from '../src/circuits/latches';
+import { d, jk, _d, sr } from '../src/circuits';
 
 describe('SR Latch', () => {
   test('default state', () => {

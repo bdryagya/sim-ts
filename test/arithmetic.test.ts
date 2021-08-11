@@ -1,5 +1,5 @@
 import { _io, __7addr, __7subr, __addr } from './helpers';
-import { _7addr, _7subr } from '../src/circuits/arithmetic';
+import { _7addr, _7subr } from '../src/circuits';
 
 describe('Arithmetic', () => {
   test('addr', () => {

@@ -124,26 +124,27 @@ describe('JK Flip Flop', () => {
     const io: io[] = _io([0, 0, 0, 0, 1]);
 
     jk(io[0], io[1], io[2], io[3], io[4]);
-    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
   });
 
   test('set', () => {
     const io: io[] = _io([0, 0, 0, 0, 1]);
 
-    io[3].v = 1;
-    jk(io[0], io[1], io[2], io[3], io[4]);
-
-    jk(io[0], io[1], io[2], io[3], io[4]);
-    expect([io[0].v, io[1].v]).toEqual([1, 0]);
-  });
-
-  test('reset', () => {
-    const io: io[] = _io([0, 0, 0, 0, 1]);
     jk(io[0], io[1], io[2], io[3], io[4]);
 
     io[2].v = 1;
     jk(io[0], io[1], io[2], io[3], io[4]);
     expect([io[0].v, io[1].v]).toEqual([0, 1]);
+  });
+
+  test('reset', () => {
+    const io: io[] = _io([0, 0, 0, 0, 1]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+
+    io[3].v = 1;
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 
   test('toggle', () => {
@@ -155,9 +156,6 @@ describe('JK Flip Flop', () => {
     io[3].v = 1;
 
     jk(io[0], io[1], io[2], io[3], io[4]);
-    expect([io[0].v, io[1].v]).toEqual([0, 1]);
-
-    jk(io[0], io[1], io[2], io[3], io[4]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
 
     jk(io[0], io[1], io[2], io[3], io[4]);
@@ -165,5 +163,8 @@ describe('JK Flip Flop', () => {
 
     jk(io[0], io[1], io[2], io[3], io[4]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
+
+    jk(io[0], io[1], io[2], io[3], io[4]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
   });
 });

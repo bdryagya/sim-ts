@@ -33,7 +33,7 @@ export const _d = (qc: io, q: io, d: io) => {
   sr(qc, q, d, _r);
 };
 
-export const jk = (q: io, qc: io, k: io, j: io, clk: io) => {
+export const jk = (qc: io, q: io, j: io, k: io, clk: io) => {
   const s: io = { v: 0 };
   const _k: io = { v: 0 };
   const r: io = { v: 0 };

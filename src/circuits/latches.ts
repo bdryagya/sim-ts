@@ -5,7 +5,7 @@ export const sr = (qc: io, q: io, s: io, r: io) => {
   nor(qc, s, q);
   nor(q, r, qc);
 
-  // repeat for complete cycle
+  // feedback
   nor(qc, s, q);
   nor(q, r, qc);
 };
@@ -51,7 +51,8 @@ export const jk = (qc: io, q: io, j: io, k: io, clk: io) => {
 
   nand(q, s, qc);
   nand(qc, r, q);
-  // repeat for complete cycle
+
+  // feedback
   nand(q, s, qc);
   nand(qc, r, q);
 };

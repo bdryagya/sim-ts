@@ -1,9 +1,9 @@
 import { _io, __7addr, __7subr, __addr } from './helpers';
-import { _7addr, _7subr } from '../src/circuits';
-import { sr } from '../src/circuits/latches';
+import { _7addr, _7subr, sr } from '../src/circuits';
 import { io } from '../src/types';
+import { d, _d } from '../src/circuits/latches';
 
-describe('Arithmetic Tests', () => {
+describe('Arithmetic', () => {
   test('addr', () => {
     expect(__addr(0, 0, 0)).toBe(0);
     expect(__addr(0, 0, 1)).toBe(1);
@@ -69,6 +69,50 @@ describe('SR Latch', () => {
 
     io[3].v = 1;
     sr(io[0], io[1], io[2], io[3]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+});
+
+describe('D Latch', () => {
+  const io: io[] = _io([0, 0, 0, 0]);
+
+  io[3].v = 1; // clock
+
+  test('default state', () => {
+    d(io[0], io[1], io[2], io[3]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+
+  test('data', () => {
+    io[2].v = 1;
+    d(io[0], io[1], io[2], io[3]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+  });
+
+  test('no-data', () => {
+    io[2].v = 0;
+    d(io[0], io[1], io[2], io[3]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+});
+
+describe('D Latch NOR', () => {
+  const io: io[] = _io([0, 0, 0]);
+
+  test('default state', () => {
+    _d(io[0], io[1], io[2]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+  });
+
+  test('data', () => {
+    io[2].v = 1;
+    _d(io[0], io[1], io[2]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+  });
+
+  test('no-data', () => {
+    io[2].v = 0;
+    _d(io[0], io[1], io[2]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 });

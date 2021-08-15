@@ -15,8 +15,8 @@ describe('Arithmetic', () => {
   test('addr', () => {
     expect(__addr(0, 0)).toBe(0 + 0);
     expect(__addr(0, 1)).toBe(0 + 1);
-    // expect(__addr(124, 12)).toBe(124 + 12);
-    // expect(__addr(127, 127)).toBe(127 + 127);
+    expect(__addr(124, 12)).toBe(124 + 12);
+    expect(__addr(127, 127)).toBe(127 + 127);
   });
 
   test('subr', () => {

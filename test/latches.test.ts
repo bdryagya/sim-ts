@@ -142,28 +142,10 @@ describe('Register', () => {
     const en: io = { v: 0 };
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
   });
 
   test('not enabled', () => {
@@ -173,28 +155,10 @@ describe('Register', () => {
     const en: io = { v: 0 };
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
   });
 
   test('data, enabled', () => {
@@ -204,27 +168,9 @@ describe('Register', () => {
     const en: io = { v: 1 };
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
+    expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
 
     r(qc, q, _d, en);
-    expect([
-      q[0].v,
-      q[1].v,
-      q[2].v,
-      q[3].v,
-      q[4].v,
-      q[5].v,
-      q[6].v,
-      q[7].v,
-    ]).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
+    expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
   });
 });

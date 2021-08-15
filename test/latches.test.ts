@@ -1,6 +1,7 @@
 import { _io } from './helpers';
 import { io } from '../src/types';
 import { d, jk, _d, sr } from '../src/circuits';
+import { r } from '../src/circuits/latches';
 
 describe('SR Latch', () => {
   test('default state', () => {
@@ -42,7 +43,7 @@ describe('SR Latch', () => {
 describe('D Latch', () => {
   const io: io[] = _io([0, 0, 0, 0]);
 
-  io[3].v = 1; // clock
+  io[3].v = 1; // enabled
 
   test('default state', () => {
     d(io[0], io[1], io[2], io[3]);
@@ -130,5 +131,100 @@ describe('JK Flip Flop', () => {
 
     jk(io[0], io[1], io[2], io[3], io[4]);
     expect([io[0].v, io[1].v]).toEqual([0, 1]);
+  });
+});
+
+describe('Register', () => {
+  test('default state', () => {
+    const _d: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const en: io = { v: 0 };
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+  });
+
+  test('not enabled', () => {
+    const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const _d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
+    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const en: io = { v: 0 };
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+  });
+
+  test('data, enabled', () => {
+    const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const _d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
+    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const en: io = { v: 1 };
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
+
+    r(qc, q, _d, en);
+    expect([
+      q[0].v,
+      q[1].v,
+      q[2].v,
+      q[3].v,
+      q[4].v,
+      q[5].v,
+      q[6].v,
+      q[7].v,
+    ]).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
   });
 });

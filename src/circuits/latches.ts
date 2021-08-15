@@ -21,6 +21,7 @@ export const d = (qc: io, q: io, d: io, en: io) => {
   nand(_d, d, en);
   nand(_c, _r, en);
 
+  // q and qc are complemented
   sr(q, qc, _d, _c);
 };
 
@@ -55,4 +56,15 @@ export const jk = (qc: io, q: io, j: io, k: io, en: io) => {
   // feedback
   nand(q, s, qc);
   nand(qc, r, q);
+};
+
+export const r = (qc: io[], q: io[], _d: io[], en: io) => {
+  d(qc[0], q[0], _d[0], en);
+  d(qc[1], q[1], _d[1], en);
+  d(qc[2], q[2], _d[2], en);
+  d(qc[3], q[3], _d[3], en);
+  d(qc[4], q[4], _d[4], en);
+  d(qc[5], q[5], _d[5], en);
+  d(qc[6], q[6], _d[6], en);
+  d(qc[7], q[7], _d[7], en);
 };

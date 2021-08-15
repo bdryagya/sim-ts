@@ -10,7 +10,7 @@ export const sr = (qc: io, q: io, s: io, r: io) => {
   nor(q, r, qc);
 };
 
-export const d = (qc: io, q: io, d: io, clk: io) => {
+export const d = (qc: io, q: io, d: io, en: io) => {
   const _r: io = { v: 0 };
   const r: io = { v: d.v };
   const _d: io = { v: 0 };
@@ -18,8 +18,8 @@ export const d = (qc: io, q: io, d: io, clk: io) => {
 
   not(_r, r);
 
-  nand(_d, d, clk);
-  nand(_c, _r, clk);
+  nand(_d, d, en);
+  nand(_c, _r, en);
 
   sr(q, qc, _d, _c);
 };
@@ -33,7 +33,7 @@ export const _d = (qc: io, q: io, d: io) => {
   sr(qc, q, d, _r);
 };
 
-export const jk = (qc: io, q: io, j: io, k: io, clk: io) => {
+export const jk = (qc: io, q: io, j: io, k: io, en: io) => {
   const s: io = { v: 0 };
   const _k: io = { v: 0 };
   const r: io = { v: 0 };
@@ -42,11 +42,11 @@ export const jk = (qc: io, q: io, j: io, k: io, clk: io) => {
   const __k: io = { v: 0 };
 
   and(_j, qc, j);
-  and(__j, _j, clk);
+  and(__j, _j, en);
   not(s, __j);
 
   and(_k, q, k);
-  and(__k, _k, clk);
+  and(__k, _k, en);
   not(r, __k);
 
   nand(q, s, qc);

@@ -1,4 +1,4 @@
-import { bit } from '../types';
+import { bit, io } from '../types';
 
 export const _8decoder = (n: number): bit[] =>
   [
@@ -12,6 +12,18 @@ export const _8decoder = (n: number): bit[] =>
     n & 1,
   ] as bit[];
 
+export const __8decoder = (n: number): io[] =>
+  [
+    { v: (n & (1 << 7)) >> 7 },
+    { v: (n & (1 << 6)) >> 6 },
+    { v: (n & (1 << 5)) >> 5 },
+    { v: (n & (1 << 4)) >> 4 },
+    { v: (n & (1 << 3)) >> 3 },
+    { v: (n & (1 << 2)) >> 2 },
+    { v: (n & (1 << 1)) >> 1 },
+    { v: n & 1 },
+  ] as io[];
+
 export const _8encoder = (o: bit[]) =>
   (o[0] << 7) |
   (o[1] << 6) |
@@ -21,3 +33,24 @@ export const _8encoder = (o: bit[]) =>
   (o[5] << 2) |
   (o[6] << 1) |
   o[7];
+
+export const __8encoder = (o: io[]) =>
+  (o[0].v << 7) |
+  (o[1].v << 6) |
+  (o[2].v << 5) |
+  (o[3].v << 4) |
+  (o[4].v << 3) |
+  (o[5].v << 2) |
+  (o[6].v << 1) |
+  o[7].v;
+
+export const _9encoder = (o: bit[]) =>
+  (o[0] << 8) |
+  (o[1] << 7) |
+  (o[2] << 6) |
+  (o[3] << 5) |
+  (o[4] << 4) |
+  (o[5] << 3) |
+  (o[6] << 2) |
+  (o[7] << 1) |
+  o[8];

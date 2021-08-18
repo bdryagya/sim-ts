@@ -1,6 +1,25 @@
 import { and, not } from '../gates';
 import { io } from '../types';
 
+export const _dec = (o: io[], i: io[]) => {
+  const ic: io[] = [{ v: 0 }, { v: 0 }];
+
+  not(ic[0], i[0]);
+  not(ic[1], i[1]);
+
+  // 4th bit, 00
+  and(o[3], ic[0], ic[1]);
+
+  // 3rd bit, 01
+  and(o[2], ic[0], i[1]);
+
+  // 2nd bit, 10
+  and(o[1], i[0], ic[1]);
+
+  // 1st bit, 11
+  and(o[0], i[0], i[1]);
+};
+
 export const dec = (o: io[], i: io[]) => {
   const ic: io[] = [{ v: 0 }, { v: 0 }, { v: 0 }, { v: 0 }];
 

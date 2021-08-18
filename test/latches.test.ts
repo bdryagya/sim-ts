@@ -136,41 +136,38 @@ describe('JK Flip Flop', () => {
 
 describe('Register', () => {
   test('default state', () => {
-    const _d: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const d: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
     const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
-    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
     const en: io = { v: 0 };
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
   });
 
   test('not enabled', () => {
     const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
-    const _d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
-    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
     const en: io = { v: 0 };
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([0, 0, 0, 0, 0, 0, 0, 0]));
   });
 
   test('data, enabled', () => {
     const q: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
-    const _d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
-    const qc: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+    const d: io[] = _io([1, 1, 1, 1, 1, 1, 1, 1]);
     const en: io = { v: 1 };
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
 
-    r(qc, q, _d, en);
+    r(q, d, en);
     expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
   });
 });

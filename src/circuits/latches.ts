@@ -58,7 +58,18 @@ export const jk = (qc: io, q: io, j: io, k: io, en: io) => {
   nand(qc, r, q);
 };
 
-export const r = (qc: io[], q: io[], _d: io[], en: io) => {
+export const r = (q: io[], _d: io[], en: io) => {
+  const qc: io[] = [
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+    { v: 0 },
+  ];
+
   d(qc[0], q[0], _d[0], en);
   d(qc[1], q[1], _d[1], en);
   d(qc[2], q[2], _d[2], en);

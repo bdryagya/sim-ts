@@ -41,24 +41,34 @@ describe('SR Latch', () => {
 });
 
 describe('D Latch', () => {
-  const io: io[] = _io([0, 0, 0, 0]);
-
-  io[3].v = 1; // enabled
-
   test('default state', () => {
-    d(io[0], io[1], io[2], io[3]);
+    const io: io[] = _io([0, 0, 0, 0, 0, 0, 0]);
+
+    d(io[0], io[1], io[2], io[3], io[4], io[5], io[6]);
+    expect([io[0].v, io[1].v]).toEqual([1, 0]);
+
+    io[3].v = 1;
+    io[2].v = 0;
+
+    d(io[0], io[1], io[2], io[3], io[4], io[5], io[6]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 
   test('data', () => {
-    io[2].v = 1;
-    d(io[0], io[1], io[2], io[3]);
+    const io: io[] = _io([0, 0, 1, 1, 0, 0, 0]);
+
+    d(io[0], io[1], io[2], io[3], io[4], io[5], io[6]);
+    expect([io[0].v, io[1].v]).toEqual([0, 1]);
+
+    io[2].v = 0;
+    io[3].v = 0;
+    d(io[0], io[1], io[2], io[3], io[4], io[5], io[6]);
     expect([io[0].v, io[1].v]).toEqual([0, 1]);
   });
 
   test('no-data', () => {
-    io[2].v = 0;
-    d(io[0], io[1], io[2], io[3]);
+    const io: io[] = _io([0, 0, 0, 1, 0, 0, 0]);
+    d(io[0], io[1], io[2], io[3], io[4], io[5], io[6]);
     expect([io[0].v, io[1].v]).toEqual([1, 0]);
   });
 });
@@ -166,6 +176,11 @@ describe('Register', () => {
 
     r(q, d, en);
     expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
+
+    r(q, d, en);
+    expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));
+
+    en.v = 0;
 
     r(q, d, en);
     expect(q).toEqual(_io([1, 1, 1, 1, 1, 1, 1, 1]));

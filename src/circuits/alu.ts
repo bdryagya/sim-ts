@@ -2,7 +2,7 @@ import { and, not, or } from '../gates';
 import { io } from '../types';
 import { _addr_subr } from './arithmetic';
 import { _dec } from './decoders';
-import { _2mux, _4mux } from './multiplexers';
+import { _4mux } from './multiplexers';
 
 export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   const _rsum_sub: io[] = [
@@ -48,9 +48,10 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   const _op: io[] = [{ v: 0 }, { v: 0 }, { v: 0 }, { v: 0 }];
   _dec(_op, op);
 
-  // SUM and SUB
+  // RESULT ARITHMETIC
   _addr_subr(co, _rsum_sub, a, b, _op[2]);
 
+  // RESULT AND
   and(_rand[7], a[7], b[7]);
   and(_rand[6], a[6], b[6]);
   and(_rand[5], a[5], b[5]);
@@ -61,6 +62,7 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   and(_rand[1], a[1], b[1]);
   and(_rand[0], a[0], b[0]);
 
+  // RESULT OR
   or(_ror[7], a[7], b[7]);
   or(_ror[6], a[6], b[6]);
   or(_ror[5], a[5], b[5]);
@@ -71,7 +73,7 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   or(_ror[1], a[1], b[1]);
   or(_ror[0], a[0], b[0]);
 
-  // result
+  // RESOUT OUT
   _4mux(r[7], [_rand[7], _ror[7], _rsum_sub[7], _rsum_sub[7]], op);
   _4mux(r[6], [_rand[6], _ror[6], _rsum_sub[6], _rsum_sub[6]], op);
   _4mux(r[5], [_rand[5], _ror[5], _rsum_sub[5], _rsum_sub[5]], op);
@@ -81,10 +83,10 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   _4mux(r[1], [_rand[1], _ror[1], _rsum_sub[1], _rsum_sub[1]], op);
   _4mux(r[0], [_rand[0], _ror[0], _rsum_sub[0], _rsum_sub[0]], op);
 
-  // carry flag
+  // CARRY FLAG
   f[0].v = co.v;
 
-  // eq flag
+  // EQ FLAG
   const _e: io = { v: 0 };
   or(_e, _e, _rsum_sub[7]);
   or(_e, _e, _rsum_sub[6]);
@@ -97,10 +99,10 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
 
   not(f[1], _e);
 
-  // negative flag, OP is SUB and MSB is 1
+  // NEGATIVE FLAG, OP is SUB and MSB is 1
   and(f[2], r[0], _op[2]);
 
-  // zero flag, result is 0
+  // ZERO FLAG, result is 0
   const _z: io = { v: 0 };
   or(_z, _z, _rsum_sub[0]);
   or(_z, _z, _rsum_sub[1]);

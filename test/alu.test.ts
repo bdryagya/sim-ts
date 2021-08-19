@@ -69,7 +69,7 @@ describe('Flags', () => {
     expect(f).toEqual(_io([1, 0, 0, 0]));
   });
 
-  test('zero flag', () => {
+  test('equal flag', () => {
     const co: io = { v: 0 };
     const f: io[] = _io([0, 0, 0, 0]);
     const r: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);

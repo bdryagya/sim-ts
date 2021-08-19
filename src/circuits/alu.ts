@@ -100,18 +100,18 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   _4mux(co, [{ v: 0 }, { v: 0 }, _sub_co, _sum_co], _op);
   f[0].v = co.v;
 
-  // zero flag
-  const _z: io = { v: 0 };
-  or(_z, _z, _rsub[7]);
-  or(_z, _z, _rsub[6]);
-  or(_z, _z, _rsub[5]);
-  or(_z, _z, _rsub[4]);
-  or(_z, _z, _rsub[3]);
-  or(_z, _z, _rsub[2]);
-  or(_z, _z, _rsub[1]);
-  or(_z, _z, _rsub[0]);
+  // eq flag
+  const _e: io = { v: 0 };
+  or(_e, _e, _rsub[7]);
+  or(_e, _e, _rsub[6]);
+  or(_e, _e, _rsub[5]);
+  or(_e, _e, _rsub[4]);
+  or(_e, _e, _rsub[3]);
+  or(_e, _e, _rsub[2]);
+  or(_e, _e, _rsub[1]);
+  or(_e, _e, _rsub[0]);
 
-  not(f[1], _z);
+  not(f[1], _e);
 
   // negative flag, OP is SUB and MSB is 1
   and(f[2], r[0], _op[2]);

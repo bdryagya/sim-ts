@@ -25,7 +25,7 @@ describe('ALU', () => {
 
     alu(co, r, __8decoder(123), __8decoder(111), f, _io([0, 1]));
     expect(__8encoder(r)).toBe(123 - 111);
-    expect(co.v).toBe(0);
+    expect(co.v).toBe(1);
 
     alu(co, r, __8decoder(111), __8decoder(123), f, _io([0, 1]));
     expect(__8encoder(r)).toBe(256 - (123 - 111));
@@ -66,7 +66,7 @@ describe('Flags', () => {
     const r: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
 
     alu(co, r, __8decoder(255), __8decoder(1), f, _io([0, 0]));
-    expect(f).toEqual(_io([1, 0, 0, 0]));
+    expect(f[0].v).toEqual(1);
   });
 
   test('equal flag', () => {
@@ -75,10 +75,10 @@ describe('Flags', () => {
     const r: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
 
     alu(co, r, __8decoder(127), __8decoder(127), f, _io([0, 1]));
-    expect(f).toEqual(_io([0, 1, 0, 0]));
+    expect(f[1].v).toEqual(1);
 
     alu(co, r, __8decoder(127), __8decoder(126), f, _io([0, 1]));
-    expect(f).toEqual(_io([0, 0, 0, 0]));
+    expect(f[1].v).toEqual(0);
   });
 
   test('negative flag', () => {
@@ -87,6 +87,18 @@ describe('Flags', () => {
     const r: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
 
     alu(co, r, __8decoder(12), __8decoder(127), f, _io([0, 1]));
-    expect(f).toEqual(_io([0, 0, 1, 0]));
+    expect(f[2].v).toEqual(1);
+  });
+
+  test('zero flag', () => {
+    const co: io = { v: 0 };
+    const f: io[] = _io([0, 0, 0, 0]);
+    const r: io[] = _io([0, 0, 0, 0, 0, 0, 0, 0]);
+
+    alu(co, r, __8decoder(127), __8decoder(127), f, _io([0, 1]));
+    expect(f[3].v).toEqual(1);
+
+    alu(co, r, __8decoder(127), __8decoder(126), f, _io([0, 1]));
+    expect(f[3].v).toEqual(0);
   });
 });

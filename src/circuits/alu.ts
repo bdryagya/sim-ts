@@ -82,7 +82,6 @@ export const alu = (co: io, r: io[], a: io[], b: io[], f: io[], op: io[]) => {
   _4mux(r[0], [_rand[0], _ror[0], _rsum_sub[0], _rsum_sub[0]], op);
 
   // carry flag
-  _4mux(co, [{ v: 0 }, { v: 0 }, co, co], _op);
   f[0].v = co.v;
 
   // eq flag
